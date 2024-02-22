@@ -1,0 +1,25 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) Media Design School
+//
+// File Name : lightMarkerVertex.txt
+// Description : Vertex shader for rendering light markers in the scene.
+// Author : Ryan Van Ingen-kal
+// Mail : Ryan.IngenKal@mds.ac.nz
+//
+
+#version 330 core
+layout (location = 0) in vec3 aPos;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
+
+void main()
+{
+    gl_Position = projection * view * model * vec4(aPos, 1.0);
+}

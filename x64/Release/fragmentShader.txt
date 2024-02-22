@@ -1,0 +1,180 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) Media Design School
+//
+// File Name : fragmentShader.txt
+// Description : Fragment shader script for handling pixel color computations based on lighting.
+// Author : Ryan Van Ingen-kal
+// Mail : Ryan.IngenKal@mds.ac.nz
+//
+
+#version 330 core
+out vec4 FragColor;
+
+in vec3 FragPos;  // from vertex shader
+in vec3 Normal;   // from vertex shader
+
+uniform vec3 viewPos;
+
+// Define the PointLight structure
+struct PointLight 
+{
+    bool enabled;
+    vec3 position;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+
+    float constant;
+    float linear;
+    float quadratic;
+};
+
+struct SpotLight 
+{
+    bool enabled;
+    vec3 position;
+    vec3 direction;
+    float cutOff;
+    float outerCutOff;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+
+    float constant;
+    float linear;
+    float quadratic;
+};
+
+// Uniform variables for the rim lighting
+uniform vec3 rimColor;
+uniform float rimStrength;
+uniform bool applyRimLighting;
+
+// Uniform variable for enabling/disabling reflection on the current object
+uniform bool applyReflection;
+
+// Uniform variables for the skybox
+uniform samplerCube skybox; // The cubemap (skybox)
+uniform float reflectionStrength; // To control how strong the reflection is. Ranges from 0.0 (no reflection) to 1.0 (full reflection).
+
+uniform SpotLight spotlight;
+
+#define NUM_POINT_LIGHTS 2
+uniform PointLight pointLights[NUM_POINT_LIGHTS];  // Array of point lights
+
+// Uniform variables for the  directional light
+uniform bool isDirectionalLightOn;
+uniform vec3 directionalLightColor;
+
+// Function to calculate lighting color based on light properties
+vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
+{
+    if (!light.enabled) 
+    {
+        return vec3(0.0, 0.0, 0.0); // If light is not enabled, return no color
+    }
+
+    vec3 lightDir = normalize(light.position - fragPos);
+    // Diffuse shading
+    float diff = max(dot(normal, lightDir), 0.0);
+    // Specular shading (Blinn-Phong)
+    vec3 halfwayDir = normalize(lightDir + viewDir);
+    float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+
+    // Attenuation
+    float distance = length(light.position - fragPos);
+    float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * (distance * distance));    
+
+    // Combine results
+    vec3 ambient = light.ambient;
+    vec3 diffuse = light.diffuse * diff;
+    vec3 specular = light.specular * spec;
+    return (ambient + diffuse + specular) * attenuation; 
+}
+
+vec3 CalculateSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+{
+    vec3 lightDir = normalize(light.position - fragPos);
+    float theta = dot(lightDir, normalize(-light.direction)); // Angle between light direction and direction to fragment
+    float epsilon = light.cutOff - light.outerCutOff;
+    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+    
+    // Diffuse shading
+    float diff = max(dot(normal, lightDir), 0.0);
+    // Specular shading (Blinn-Phong)
+    vec3 halfwayDir = normalize(lightDir + viewDir);
+    float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+
+    // Attenuation
+    float distance = length(light.position - fragPos);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));    
+
+    // Combine results
+    vec3 ambient = light.ambient;
+    vec3 diffuse = light.diffuse * diff;
+    vec3 specular = light.specular * spec;
+    return (ambient + diffuse + specular) * attenuation * intensity;  // Multiply with intensity to get spotlight effect
+}
+
+
+void main() 
+{
+    vec3 norm = normalize(Normal);
+    vec3 viewDir = normalize(viewPos - FragPos);
+
+    vec3 result = vec3(0.0, 0.0, 0.0); // Initialize the color as black (no light)
+    
+    // Handle point lights
+    for(int i = 0; i < NUM_POINT_LIGHTS; i++) 
+    {
+        result += CalculatePointLight(pointLights[i], norm, FragPos, viewDir);
+    }
+
+    // Handle hardcoded directional light if it is turned on
+    if(isDirectionalLightOn)
+    {
+        vec3 direction = normalize(vec3(-0.2f, -1.0f, -0.3f));
+        vec3 ambient = 0.05 * directionalLightColor;
+        float diff = max(dot(norm, direction), 0.0);
+        vec3 diffuse = diff * directionalLightColor;
+
+        result += ambient + diffuse;
+    }
+
+    // Handle spotlight
+    if(spotlight.enabled)
+    {
+        result += CalculateSpotLight(spotlight, norm, FragPos, viewDir);
+    }
+
+    if (applyRimLighting)
+    {
+        float rimEdge = 5.0;
+        float rim = 1.0 - max(dot(viewDir, norm), 0.0);
+        rim = smoothstep(1.0 - rimEdge, 1.0, rim);
+        vec3 rimLight = rim * rimColor;
+        result += rimLight * rimStrength;
+    }
+
+    // Adjust the base color if the rim lighting is applied to prevent overpowering
+    vec3 baseColor = result * (applyRimLighting ? 0.5 : 1.0); // Reduce base lighting if rim lighting is applied
+
+    // If reflection is enabled, mix it with the base color
+    if (applyReflection) 
+    {
+        vec3 I = normalize(FragPos - viewPos);
+        vec3 R = reflect(I, norm);
+        vec3 reflection = texture(skybox, R).rgb;
+        baseColor = mix(baseColor, reflection, reflectionStrength);
+    }
+
+    // Output the final color to the fragment
+    FragColor = vec4(baseColor, 1.0);
+}

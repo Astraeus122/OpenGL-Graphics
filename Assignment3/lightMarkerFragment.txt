@@ -1,0 +1,23 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) Media Design School
+//
+// File Name : lightMarkerFragment.txt
+// Description : Fragment shader for rendering light markers in the scene.
+// Author : Ryan Van Ingen-kal
+// Mail : Ryan.IngenKal@mds.ac.nz
+//
+
+#version 330 core
+out vec4 FragColor;
+
+uniform vec3 lightColor;
+
+void main()
+{
+    FragColor = vec4(lightColor, 1.0);  // The color is set via a uniform.
+}

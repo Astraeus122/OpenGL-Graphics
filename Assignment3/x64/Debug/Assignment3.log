@@ -1,0 +1,24 @@
+﻿  Camera.cpp
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Camera.cpp(107,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Camera.cpp(108,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Camera.cpp(112,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Camera.cpp(113,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Camera.cpp(115,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Camera.cpp(116,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Camera.cpp(123,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Cube.cpp
+  Light.cpp
+  LightManager.cpp
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\LightManager.cpp(47,44): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Pyramid.h(99,50): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(158,148): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(158,142): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(159,154): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(159,148): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(203,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(321,29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  pointLight.cpp
+  Shader.cpp
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Shader.cpp(47,36): warning C4101: 'e': unreferenced local variable
+  Skybox.cpp

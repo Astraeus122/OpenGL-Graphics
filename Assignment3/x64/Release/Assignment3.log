@@ -1,0 +1,13 @@
+﻿  main.cpp
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\Pyramid.h(99,50): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(158,148): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(158,142): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(159,154): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(159,148): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(203,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\Assignment3\main.cpp(321,29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating code
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 961 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Assignment3.vcxproj -> C:\Users\ryanv\OneDrive\Desktop\2023\2ndSem\GD1P04\Assignment3\x64\Release\Assignment3.exe

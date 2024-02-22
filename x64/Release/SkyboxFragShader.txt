@@ -1,0 +1,24 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) Media Design School
+//
+// File Name : SkyboxFragShader.txt
+// Description : Simple fragment shader for rendering the faces of the skybox with textures.
+// Author : Ryan Van Ingen-kal
+// Mail : Ryan.IngenKal@mds.ac.nz
+//
+
+#version 330 core
+out vec4 FragColor;
+in vec3 TexCoords;
+
+uniform samplerCube skybox;
+
+void main() 
+{ 
+    FragColor = texture(skybox, TexCoords);
+}

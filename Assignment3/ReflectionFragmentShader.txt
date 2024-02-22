@@ -1,0 +1,48 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) Media Design School
+//
+// File Name : ReflectionFragmentShader.txt
+// Description : Fragment shader for creating reflection effects for the pyramid.
+// Author : Ryan Van Ingen-kal
+// Mail : Ryan.IngenKal@mds.ac.nz
+//
+
+#version 330 core
+out vec4 FragColor;
+
+in vec3 Normal;  
+in vec3 FragPos; 
+in vec2 TexCoords; 
+
+uniform sampler2D objectTexture; // The object's texture
+uniform samplerCube reflectionMap; // The cube map for reflections
+uniform sampler2D reflectionControlMap; // The grayscale reflection map
+
+uniform vec3 viewPos; // The viewer's position
+
+void main()
+{
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-viewDir, normalize(Normal));
+    vec4 reflectionColor = texture(reflectionMap, reflectDir);
+
+    vec4 textureColor = texture(objectTexture, TexCoords);
+
+    float reflectionAmount = texture(reflectionControlMap, TexCoords).r;
+
+    if (TexCoords.y > 5)
+    {
+        reflectionAmount = 0.0;
+    }
+
+    // Output the mixed color
+    FragColor = mix(textureColor, reflectionColor, reflectionAmount);
+}
+
+
+
